@@ -10,8 +10,6 @@ class App extends Component {
 
   state = {
     allCollegeResults: [],
-    searchTerm: "",
-    searchesToDisplay: [],
     hidden: false,
     users: []
   }
@@ -39,22 +37,6 @@ class App extends Component {
     })
   }
 
-  handleSearch = (e) => {
-    e.preventDefault()
-    this.setState({
-      searchTerm: e.target.value
-    }, () => console.log(this.state.searchTerm))
-  }
-
-  searchesToDisplay = () => {
-    const searchesToDisplay = this.state.allCollegeResults.filter( college => {
-      return college.name.includes(this.state.searchTerm)
-    })
-    this.setState({
-      searchesToDisplay
-    }, () => console.log("searches", this.state.searchesToDisplay))
-  }
-
 
   logInSignUpForm = () => (
     <div className="log-in-sign-up-wrapper">
@@ -68,15 +50,9 @@ class App extends Component {
     <div className="wrapper">
       <CollegeContainer
         allCollegeResults={this.state.allCollegeResults}
-        handleSearch={this.handleSearch}
-        searchesToDisplay={() => this.searchesToDisplay}
       />
     </div>
   )
-
-  // <li className="nav-links search-nav">
-  //   <Search />
-  // </li>
 
   render() {
     return (

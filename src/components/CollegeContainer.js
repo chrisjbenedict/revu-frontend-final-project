@@ -5,7 +5,8 @@ import Search from './Search'
 export default class CollegeContainer extends React.Component {
 
   state = {
-    collegesToSend: []
+    collegesToSend: [],
+    searchTerm: ""
   }
 
   handleLetterClick = (e) => {
@@ -23,13 +24,28 @@ export default class CollegeContainer extends React.Component {
     }, () => console.log("send em", this.state.collegesToSend))
   }
 
+  handleSearch = (e) => {
+    e.preventDefault()
+    this.setState({
+      searchTerm: e.target.value
+    }, () => this.searchesToDisplay())
+  }
+
+  searchesToDisplay = () => {
+    const searchesToDisplay = this.props.allCollegeResults.filter( college => {
+      return college.name.toLowerCase().includes(this.state.searchTerm.toLowerCase())
+    })
+    this.setState({
+      collegesToSend: searchesToDisplay
+    })
+  }
 
   render() {
     const alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
     return(
       <div className="college-search-container">
         <div className="search-colleges-wrapper">
-          <Search handleSearch={this.props.handleSearch}/>
+          <Search handleSearch={this.handleSearch}/>
         </div>
         <div className="alphabet-wrapper">
           {alphabet.map(letter => {
@@ -42,7 +58,6 @@ export default class CollegeContainer extends React.Component {
               <CollegeInfoCard
                 key={college.id}
                 collegeData={college}
-                // searchesToDisplay={this.searchesToDisplay()}
               />
             )
           })}
