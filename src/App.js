@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import './App.css';
-import {BrowserRouter as Router, Route, Link, NavLink} from "react-router-dom"
+import { Switch, Route, withRouter } from 'react-router-dom'
 import CollegeContainer from './components/CollegeContainer'
 import Search from './components/Search'
-import LogInSignUpForm from './components/LogInSignUpForm'
+import Navigation from './components/Navigation'
+import SignupForm from './components/SignupForm'
+import LoginForm from './components/LoginForm'
+import Profile from './components/Profile'
 
 
 class App extends Component {
@@ -11,10 +14,29 @@ class App extends Component {
   state = {
     allCollegeResults: [],
     hidden: false,
-    users: []
+    users: [],
+    currentUser: {},
+    allReviews: [],
+    currentUserReviews: [],
+    allCategories: []
   }
 
   componentDidMount() {
+    let token = localStorage.getItem("token")
+
+    if(token) {
+      fetch(`http://localhost:3001/api/v1/current_user`, {
+        headers: {
+          "Authorization": token
+        }
+      })
+      .then( res => res.json())
+      .then( currentUser => {
+        this.setState({
+          currentUser
+        })
+      })
+    }
     fetch("http://localhost:3001/api/v1/colleges")
     .then( resp => resp.json())
     .then( results => {
@@ -26,71 +48,147 @@ class App extends Component {
       this.setState({
         allCollegeResults: sortedResults,
         // ivyColleges: ivyData
-      }, () => console.log("college results", this.state.allCollegeResults))
+      })
       fetch("http://localhost:3001/api/v1/users")
       .then( resp => resp.json())
       .then( users => {
-        this.setState({
-          users
-        }, () => console.log(this.state.users))
+        this.setState({ users })
       })
+      fetch("http://localhost:3001/api/v1/reviews")
+      .then( resp => resp.json())
+      .then( allReviews => {
+        const currentUserReviews = allReviews.filter( review => review.user_id == this.state.currentUser.id )
+        this.setState({ allReviews, currentUserReviews })
+      })
+    })
+    fetch("http://localhost:3001/api/v1/categories")
+    .then( resp => resp.json())
+    .then( allCategories => {
+      this.setState({ allCategories })
+    })
+  }
+
+  logout = () => {
+    //Set currentUser to null
+    //Clear localStorage
+    this.setState({ currentUser: null })
+    localStorage.removeItem("token")
+    this.props.history.push("/login")
+  }
+
+  signup = (username, password, passwordConfirmation) => {
+    if (password === passwordConfirmation) {
+      fetch("http://localhost:3001/api/v1/users", {
+        method: "POST",
+        headers: {
+          'Content-Type': "application/json",
+          'Accept': "application/json"
+        },
+        body: JSON.stringify({
+          username: username,
+          password: password
+        })
+      })
+      .then( res => res.json())
+      .then( response => {
+        if (response.errors) {
+          alert(response.errors)
+        } else {
+          localStorage.setItem("token", response.token)
+          this.setState({
+            currentUser: response.user
+          }, () => console.log(response))
+          this.props.history.push('college_info')
+        }
+      })
+    } else {
+      alert("Passwords do not match.")
+    }
+  }
+
+  login = (username, password) => {
+    fetch("http://localhost:3001/api/v1/login", {
+      method: "POST",
+      headers: {
+        'Content-Type': "application/json",
+        'Accept': "application/json"
+      },
+      body: JSON.stringify({
+        username: username,
+        password: password
+      })
+    })
+    .then( res => res.json())
+    .then( response => {
+      if (response.errors) {
+        alert(response.errors)
+      } else {
+        localStorage.setItem("token", response.token)
+        this.setState({
+          currentUser: response.user
+        }, console.log(response))
+        this.props.history.push('college_info')
+      }
     })
   }
 
 
-  logInSignUpForm = () => (
-    <div className="log-in-sign-up-wrapper">
-      <LogInSignUpForm
-        users={this.state.users}
-      />
-    </div>
-  )
+  // logInSignUpForm = () => (
+  //   <div className="log-in-sign-up-wrapper">
+  //     <LogInSignUpForm
+  //       users={this.state.users}
+  //     />
+  //   </div>
+  // )
+  //
+
+  deleteReview = (reviewId) => {
+    if (window.confirm("Are you sure you want to delete this review?")) {
+      fetch(`http://localhost:3001/api/v1/reviews/${reviewId}`, {
+        method: "DELETE"
+      })
+      .then( () => {
+        this.setState({
+          allReviews: this.state.allReviews.filter( review => review.id !== reviewId)
+        })
+      })
+    }
+  }
+  
 
   renderCollegeInfo = () => (
     <div className="wrapper">
       <CollegeContainer
         allCollegeResults={this.state.allCollegeResults}
+        currentUser={this.state.currentUser}
+        users={this.state.users}
       />
     </div>
   )
 
+  renderProfile = () => (
+      <Profile
+        key={this.state.currentUser.id}
+        currentUser={this.state.currentUser}
+        currentUserReviews={this.state.currentUserReviews}
+        allColleges={this.state.allCollegeResults}
+        allCategories={this.state.allCategories}
+        deleteReview={this.deleteReview}
+      />
+  )
+
   render() {
     return (
-      <Router>
-        <div className="router-child">
+      <div className="App">
+        <Navigation currentUser={this.state.currentUser} logout={this.logout} />
+        <Switch>
+          <Route path="/college_info" component={this.renderCollegeInfo} />
+          <Route path="/profile" component={this.renderProfile} />
+          <Route path="/login" render={(routerProps) => <LoginForm login={this.login} {...routerProps}/>} />
+         	<Route path="/signup" render={(routerProps) => <SignupForm signup={this.signup} {...routerProps}/>} />
+        </Switch>
+      </div>
 
-          <div className="ui secondary  menu">
-            <a className="active item">
-              <NavLink exact to="/revU">
-                RevU
-              </NavLink>
-            </a>
-            <a className="item">
-              <NavLink exact to="/about">
-                About
-              </NavLink>
-            </a>
-            <a className="item" >
-              <NavLink exact to="/college_info">
-                College Info
-              </NavLink>
-            </a>
-            <a className="item" >
-              <NavLink exact to="/college_info">
-                Favorites
-              </NavLink>
-            </a>
-            <div className="right menu" >
-              <a className="ui item">
-                Logout
-              </a>
-            </div>
-          </div>
-          <Route exact path='/revU' component={this.logInSignUpForm}/>
-          <Route exact path='/' component={this.logInSignUpForm}/>
-          <Route exact path='/college_info' component={this.renderCollegeInfo} />
-        </div>
-      </Router>
     );
   }
 }
@@ -109,4 +207,4 @@ class App extends Component {
   //   })
   // }
 
-export default App;
+export default withRouter(App);

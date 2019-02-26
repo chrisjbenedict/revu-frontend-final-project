@@ -218,14 +218,142 @@ textarea {
   display: flex;
   flex-wrap: wrap;
   margin-top: 2rem;
+  margin-left: 8%;
 }
 
 .card-wrapper {
   margin: auto;
-  margin-bottom: 2rem;
+  margin-bottom: 4rem;
+  width: 25%;
 }
 
 .ui .link .cards {
   min-width: 304px;
   min-height: 294px;
+}
+
+.selected-college-page {
+  max-width: 80%;
+  margin: auto;
+}
+
+.college-img-acc {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.img-container {
+  text-align: center;
+  /* width: 50%; */
+  position: right;
+}
+
+.college-info-page-container {
+  /* margin-left: 15%; */
+}
+.ui.labeled.button {
+  margin-top: 4rem;
+}
+
+#accordion {
+}
+
+.college-card-title {
+  position: relative;
+  top: 100px;
+  z-index: 2;
+  color: white;
+  letter-spacing: 1px;
+  background: rgb(0, 0, 0);
+  background: rgba(0, 0, 0, 0.7);
+  padding: 25px
+}
+
+.review-button {
+  position: relative;
+  /* z-index: 2; */
+  padding: 10px;
+}
+.review-wrapper {
+  text-align: center;
+}
+.review-header {
+  margin-top: 5rem;
+}
+
+.review-icons {
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+  margin-top: 3rem;
+  margin-left: 8rem;
+  margin-right: 8rem;
+}
+
+.review-item {
+  width: 25%;
+  min-width: 300px;
+  margin-bottom: 2rem;
+}
+
+.icon.review {
+  margin: 2rem;
+  display: inline-block;
+}
+
+.icon-label {
+  font-size: 1.5rem;
+}
+
+.college-all-reviews-container {
+  margin: 4rem;
+}
+
+.new-review-button {
+  text-align: center;
+  margin: 2rem;
+}
+
+.review-modal-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width:100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.modal-main {
+  position: fixed;
+  text-align: center;
+  background: white;
+  width: 40%;
+  height: auto;
+  top:50%;
+  left:50%;
+  transform: translate(-50%,-50%);
+}
+
+.modal-content {
+  width: 90%;
+  margin: 5%;
+  /* height: 80%;
+  height: 300px; */
+  overflow-y: scroll;
+  border: 0;
+}
+
+.review-form-header {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+.single-review-container {
+  margin-left: 8rem;
+  margin-right: 8rem;
+}
+
+.profile-header {
+  text-align: left;
+  margin: 2rem;
 }
