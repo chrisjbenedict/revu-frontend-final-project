@@ -23,15 +23,12 @@ const Navigation = props => {
            <Link to='/college_info' className="item" position="left">
             College Info
            </Link>
-           <Menu.Item position="left">
+           <Link to='/favorites' className="item" position="left">
             Favorites
-           </Menu.Item>
+           </Link>
            <Link to='/profile' className="item" position="left">
             Profile
            </Link>
-           <Menu.Item position="right">
-             {`Welcome, ${props.currentUser.username}!`}
-           </Menu.Item>
            <Menu.Item position="right" onClick={props.logout}>
              Log out
            </Menu.Item>

@@ -16,7 +16,8 @@ export default class CollegeContainer extends React.Component {
     hideReview: true,
     allCategories: [],
     category: {},
-    hideReviewCategory: true
+    hideReviewCategory: true,
+    collegeReviews: []
   }
 
   componentDidMount() {
@@ -62,17 +63,40 @@ export default class CollegeContainer extends React.Component {
   }
 
   onCardClick = (selectedCollege) => {
+    const collegeReviews = this.props.allReviews.filter( review => review.college_id === selectedCollege.id)
     this.setState({
       selectedCollege,
+      collegeReviews,
       hideColleges: !this.state.hideColleges,
       hideCollege: !this.state.hideCollege
-    }, () => console.log(this.state.selectedCollege))
+    }, () => console.log(this.state.collegeReviews.length))
   }
 
   onReviewButtonClick = (college) => {
     this.setState({
       hideReview: !this.state.hideReview,
       hideCollege: !this.state.hideCollege
+    })
+  }
+
+  goBackToCollegeSearch = () => {
+    this.setState({
+      hideColleges: !this.state.hideColleges,
+      hideCollege: !this.state.hideCollege
+    })
+  }
+
+  goBackToCollegeProfile = () => {
+    this.setState({
+      hideCollege: !this.state.hideCollege,
+      hideReview: !this.state.hideReview
+    })
+  }
+
+  goBackToAllReviewOptions = () => {
+    this.setState({
+      hideReview: !this.state.hideReview,
+      hideReviewCategory: !this.state.hideReviewCategory
     })
   }
 
@@ -141,17 +165,30 @@ export default class CollegeContainer extends React.Component {
           </div>
         </div>
         <div className="selected-college-container" hidden={this.state.hideCollege}>
+          <div className="ui labeled button" tabIndex="0" onClick={this.goBackToCollegeSearch}>
+            <div className="ui basic blue button">
+              Back
+            </div>
+          </div>
           <div className="selected-college-page">
             <College
+              key={this.state.selectedCollege.id}
               college={this.state.selectedCollege}
               photos={photos}
               onReviewButtonClick={this.onReviewButtonClick}
+              collegeReviews={this.state.collegeReviews.length}
             />
           </div>
         </div>
         <div className="selected-college-review-container" hidden={this.state.hideReview}>
+          <div className="ui labeled button" tabIndex="0" onClick={this.goBackToCollegeProfile}>
+            <div className="ui basic blue button">
+              Back
+            </div>
+          </div>
           <div className="selected-college-review-page">
             <ReviewPage
+              key={this.state.selectedCollege.id}
               college={this.state.selectedCollege}
               photos={photos}
               onIconClick={this.onIconClick}
@@ -159,6 +196,11 @@ export default class CollegeContainer extends React.Component {
           </div>
         </div>
         <div className="selected-college-category-review-container" hidden={this.state.hideReviewCategory}>
+          <div className="ui labeled button" tabIndex="0" onClick={this.goBackToAllReviewOptions}>
+            <div className="ui basic blue button">
+              Back
+            </div>
+          </div>
           <div className="selected-college-category-review-page">
             <CategoryReviewsContainer
               key={this.state.selectedCollege.id}

@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import './App.css';
 import { Switch, Route, withRouter } from 'react-router-dom'
 import CollegeContainer from './components/CollegeContainer'
-import Search from './components/Search'
+// import Search from './components/Search'
 import Navigation from './components/Navigation'
 import SignupForm from './components/SignupForm'
 import LoginForm from './components/LoginForm'
 import Profile from './components/Profile'
+import Favorites from './components/Favorites'
+import RevU from './components/RevU'
 
 
 class App extends Component {
@@ -47,7 +49,6 @@ class App extends Component {
       })
       this.setState({
         allCollegeResults: sortedResults,
-        // ivyColleges: ivyData
       })
       fetch("http://localhost:3001/api/v1/users")
       .then( resp => resp.json())
@@ -57,8 +58,8 @@ class App extends Component {
       fetch("http://localhost:3001/api/v1/reviews")
       .then( resp => resp.json())
       .then( allReviews => {
-        const currentUserReviews = allReviews.filter( review => review.user_id == this.state.currentUser.id )
-        this.setState({ allReviews, currentUserReviews })
+        const currentUserReviews = allReviews.filter( review => review.user_id === this.state.currentUser.id )
+        this.setState({ allReviews, currentUserReviews }, () => console.log("user reviews", this.state.currentUserReviews))
       })
     })
     fetch("http://localhost:3001/api/v1/categories")
@@ -133,15 +134,6 @@ class App extends Component {
   }
 
 
-  // logInSignUpForm = () => (
-  //   <div className="log-in-sign-up-wrapper">
-  //     <LogInSignUpForm
-  //       users={this.state.users}
-  //     />
-  //   </div>
-  // )
-  //
-
   deleteReview = (reviewId) => {
     if (window.confirm("Are you sure you want to delete this review?")) {
       fetch(`http://localhost:3001/api/v1/reviews/${reviewId}`, {
@@ -154,21 +146,27 @@ class App extends Component {
       })
     }
   }
-  
+
+  renderRevU = () => (
+    <RevU />
+  )
+
 
   renderCollegeInfo = () => (
     <div className="wrapper">
       <CollegeContainer
+        key={this.state.allCollegeResults.length}
         allCollegeResults={this.state.allCollegeResults}
         currentUser={this.state.currentUser}
         users={this.state.users}
+        allReviews={this.state.allReviews}
       />
     </div>
   )
 
   renderProfile = () => (
       <Profile
-        key={this.state.currentUser.id}
+        key={this.state.allCollegeResults.length}
         currentUser={this.state.currentUser}
         currentUserReviews={this.state.currentUserReviews}
         allColleges={this.state.allCollegeResults}
@@ -177,13 +175,25 @@ class App extends Component {
       />
   )
 
+  renderFavorites = ()  => (
+    <Favorites
+      key={this.state.allCollegeResults.length}
+      allColleges={this.state.allCollegeResults}
+      currentUser={this.state.currentUser}
+      currentUserReviews={this.state.currentUserReviews}
+      getCollegesReviewed={this.getCollegesReviewed}
+    />
+  )
+
   render() {
     return (
       <div className="App">
         <Navigation currentUser={this.state.currentUser} logout={this.logout} />
         <Switch>
+          <Route path="/revu" component={this.renderRevU} />
           <Route path="/college_info" component={this.renderCollegeInfo} />
           <Route path="/profile" component={this.renderProfile} />
+          <Route path="/favorites" component={this.renderFavorites} />
           <Route path="/login" render={(routerProps) => <LoginForm login={this.login} {...routerProps}/>} />
          	<Route path="/signup" render={(routerProps) => <SignupForm signup={this.signup} {...routerProps}/>} />
         </Switch>

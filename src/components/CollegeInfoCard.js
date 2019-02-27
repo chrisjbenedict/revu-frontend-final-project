@@ -1,5 +1,4 @@
 import React from 'react'
-import College from './College'
 
 export default class CollegeInfoCard extends React.Component {
 
@@ -22,7 +21,7 @@ export default class CollegeInfoCard extends React.Component {
         <div className="ui link cards" >
           <div className="card">
             <div className="image">
-              <img src={this.props.photos[Math.floor(Math.random()*this.props.photos.length)]} />
+              <img src={this.props.photos[Math.floor(Math.random()*this.props.photos.length)]} alt="random college"/>
             </div>
             <div className="content">
               <div className="header">{this.props.collegeData.name}</div>

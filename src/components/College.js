@@ -1,5 +1,5 @@
 import React from 'react'
-import ReactDOM from "react-dom";
+// import ReactDOM from "react-dom";
 import { Chart } from 'react-google-charts'
 
 const pieOptions = {
@@ -41,6 +41,11 @@ const pieOptions = {
   fontName: "Roboto"
 };
 
+const formatter = new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: 'USD'
+})
+
 export default class College extends React.Component {
 
 
@@ -59,60 +64,67 @@ export default class College extends React.Component {
       })
     }
     return (
-      <div className="ui grid">
-        <div className="two column row">
-        <div className="column">
-          <div className="ui labeled button" tabIndex="0" onClick={this.props.onReviewButtonClick}>
-            <div className="ui basic blue button">
-              Reviews
-            </div>
-            <a className="ui basic left pointing blue label">
-              1,048
-            </a>
-          </div>
-          <div id="accordion" className="ui inverted segment">
+      <div className="ui">
+
+      <div className="ui labeled button" tabIndex="0" onClick={this.props.onReviewButtonClick}>
+        <div className="ui basic blue button">
+          Reviews
+        </div>
+        <a className="ui basic left pointing blue label">
+          {this.props.collegeReviews}
+        </a>
+      </div>
+
+      <div className="column">
+        <div className="img-container">
+          <h1 className="college-card-title"><span>{this.props.college.name}</span></h1>
+          <img className="ui fluid centered image" src={this.props.photos[Math.floor(Math.random()*this.props.photos.length)]} alt="random college"/>
+        </div>
+      </div>
+
+          <div className="ui inverted segment">
             <div className="ui inverted accordion">
               <div className="title">
                 <i className="dropdown icon"></i>
                 Website
               </div>
               <div className="content">
-                <a href={this.props.college.school_url}>{this.props.college.school_url}</a>
+                <p><a href={this.props.college.school_url}>{this.props.college.school_url}</a></p>
               </div>
               <div className="title">
                 <i className="dropdown icon"></i>
                 Average Total Cost
               </div>
               <div className="content">
-                <p>{this.props.college.average_cost}</p>
+                <p>{formatter.format(this.props.college.average_cost)}</p>
               </div>
               <div className="title">
                 <i className="dropdown icon"></i>
                 Admission Rate
               </div>
               <div className="content">
-                <p>{this.props.college.admission_rate}</p>
+                <p>{this.props.college.admission_rate * 100}%</p>
               </div>
               <div className="title">
                 <i className="dropdown icon"></i>
                 Graduation Rate
               </div>
               <div className="content">
-                <p>{this.props.college.completion_rate}</p>
+                <p>{this.props.college.completion_rate * 100}%</p>
               </div>
               <div className="title">
                 <i className="dropdown icon"></i>
                 Average SAT/ACT Scores
               </div>
               <div className="content">
-                <p>SAT: <span>{this.props.college.avg_sat}</span></p>
-                <p>ACT: <span>{this.props.college.avg_act}</span></p>
+                <p>SAT:  <span>{this.props.college.avg_sat}</span></p>
+                <p>ACT:  <span>{this.props.college.avg_act}</span></p>
               </div>
               <div className="title">
                 <i className="dropdown icon"></i>
                 Demographics: Race
               </div>
-              <div className="content">
+              <div className="content" style={{marginLeft: "4rem"}}>
                 <Chart
                   chartType="PieChart"
                   data={[
@@ -134,15 +146,7 @@ export default class College extends React.Component {
 
             </div>
           </div>
-        </div>
-          <div className="column">
-            <div className="img-container">
-              <h1 className="college-card-title"><span>{this.props.college.name}</span></h1>
-              <img className="ui fluid centered image" src={this.props.photos[Math.floor(Math.random()*this.props.photos.length)]}/>
-            </div>
-          </div>
 
-        </div>
       </div>
     )
   }

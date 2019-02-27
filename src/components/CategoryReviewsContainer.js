@@ -25,7 +25,8 @@ export default class CategoryReviewsContainer extends React.Component {
     this.setState({ showModal: !this.state.showModal })
   }
 
-  hideNewReviewModal = () => {
+  hideNewReviewModal = (e) => {
+    e.persist()
     this.setState({ showModal: !this.state.showModal })
   }
 
@@ -65,8 +66,18 @@ export default class CategoryReviewsContainer extends React.Component {
         rating: 0,
         content: "",
         allReviews: [...this.state.allReviews, review]
-      }, this.hideNewReviewModal())
+      }, this.hideNewReviewModal(e))
     })
+  }
+
+  setColor = (rating) => {
+    if (rating < 3) {
+      return "red"
+    } else if (rating > 3) {
+      return "green"
+    } else {
+      return "orange"
+    }
   }
 
 
@@ -81,11 +92,12 @@ export default class CategoryReviewsContainer extends React.Component {
           <button className="ui inverted primary button" onClick={this.showNewReviewModal}><i className="pencil alternate icon"></i>write a review</button>
         </div>
         <div className="reviews-container">
-          {this.state.allReviews.filter( review => review.college_id == this.props.college.id && review.category_id == this.props.category.id).map( review => {
+          {this.state.allReviews.filter( review => review.college_id === this.props.college.id && review.category_id === this.props.category.id).map( review => {
             return (
               <Review
                 review={review}
                 users={this.props.users}
+                setColor={this.setColor}
               />
             )
           })}

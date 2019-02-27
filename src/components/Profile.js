@@ -27,15 +27,37 @@ export default class Profile extends React.Component {
     })
     .then( resp => resp.json())
     .then( () => {
-      this.setState({ showModal: !this.state.showModal })
+      this.setState({
+        rating: 0,
+        content: ""
+      }, this.hideEditReviewModal(e))
+      fetch(`http://localhost:3001/api/v1/reviews/${review.id}`)
+      .then(resp => resp.json())
+      .then(currentReview => {
+        this.setState({ currentReview })
+      })
     })
+  }
+
+  setColor = (rating) => {
+    if (rating < 3) {
+      return "red"
+    } else if (rating > 3) {
+      return "green"
+    } else {
+      return "orange"
+    }
   }
 
   showEditReviewModal = (e) => {
     const currentReview = this.props.currentUserReviews.find( review => review.id == e.target.id)
     const content = currentReview.content
     const rating = currentReview.rating
-    this.setState({ showModal: !this.state.showModal, content, rating, currentReview })
+    this.setState({
+      showModal: !this.state.showModal,
+      content,
+      rating,
+      currentReview })
   }
 
   hideEditReviewModal = (e) => {
@@ -59,13 +81,14 @@ export default class Profile extends React.Component {
   render() {
     return (
       <div className="profile-wrapper">
-        <h1 className="profile-header">{this.props.currentUser.username}'s reviews:</h1>
+        <div></div>
         <div className="single-review-container">
           {this.props.currentUserReviews.map(review => {
-            const college = this.props.allColleges.find( college => college.id == review.college_id)
-            const category = this.props.allCategories.find( category => category.id == review.category_id)
+            const college = this.props.allColleges.find( college => college.id === review.college_id)
+            const category = this.props.allCategories.find( category => category.id === review.category_id)
             return (
               <div className="single-review-container">
+
                 <div className="ui message">
                   <div className="header">
                   <p style={{textAlign:"left"}}>
@@ -73,13 +96,14 @@ export default class Profile extends React.Component {
                     <span style={{float: "right"}}>
                       <i onClick={() => this.props.deleteReview(review.id)} className="window close outline large icon red"></i>
                     </span>
+                    <span style={{float:"right"}} className="dot"><p className="circle-rating" style={{color: this.setColor(review.rating)}}>{review.rating}</p></span>
                   </p><br/>
-                    {review.content}
+                    <p style={{width: "80%", textAlign: "left"}}>{review.content}</p>
                   </div><br/>
                   <p style={{textAlign: "left"}}>
                     {review.updated_at.split("T")[0]}
                     <span style={{float: "right"}}>
-                      <i id={review.id} onClick={this.showEditReviewModal} className="edit outline large icon blue"></i>
+                      <i id={review.id} onClick={(e) => this.showEditReviewModal(e)} className="edit outline large icon blue"></i>
                     </span>
                   </p>
                 </div>
@@ -90,6 +114,7 @@ export default class Profile extends React.Component {
           <br/>
         </div>
         <EditReviewForm
+          key={this.state.currentReview.id}
           show={this.state.showModal}
           handleClose={this.hideEditReviewModal}
           rating={this.state.rating}

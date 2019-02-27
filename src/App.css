@@ -5,6 +5,25 @@
   background-size: cover;
 } */
 
+/* RevU Page */
+.revu-wrapper {
+  text-align: center;
+}
+
+.revu-background {
+  /* background-image: url("https://images.unsplash.com/photo-1527269534026-c86f4009eace?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=925&q=80"); */
+  /* background-color: #19647E; */
+  opacity: .8;
+  height: 400px;
+  margin-top: -1rem;
+  text-align: center;
+  padding-top: 150px;
+}
+
+.logo {
+  font-size: 6rem;
+}
+
 li {
   text-decoration: none;
 }
@@ -29,6 +48,11 @@ li {
   color: black;
   font-weight: bold;
   text-align: center;
+}
+
+.content {
+  color:white;
+  margin-left: 3rem;
 }
 
 .nav-list {
@@ -80,139 +104,24 @@ li {
 /* LOG IN SING UP FORM */
 
 
-*, *:before, *:after {
-  box-sizing: border-box;
+textarea {
+  width: 80%;
+  padding: 10px;
+  margin-bottom: 1rem;
 }
 
-html {
-	overflow-y: scroll;
-}
-
-body {
-  background:$body-bg;
-  font-family: 'Titillium Web', sans-serif;
-}
-
-a {
-  text-decoration:none;
-  color:$main;
-  transition:.5s ease;
-  &:hover {
-    color:$main-dark;
-  }
+.ui.large.buttons {
+  margin-top: 2rem;
 }
 
 .form {
   background:rgba($form-bg,.9);
-  padding: 40px;
-  max-width:600px;
+  padding: 100px;
   margin:40px auto;
-  border-radius:$br;
-  box-shadow:0 4px 10px 4px rgba($form-bg,.3);
+  margin-left: 5rem;
+  margin-right: 5rem;
 }
 
-.tab-group {
-  list-style:none;
-  padding:0;
-  margin:0 0 40px 0;
-  &:after {
-    content: "";
-    display: table;
-    clear: both;
-  }
-  .active a {
-    background:$main;
-    color:$white;
-  }
-}
-
-.sign-up-log-in-button {
-  display:block;
-  margin-bottom: 2rem;
-  text-decoration:none;
-  padding:15px;
-  background:rgba($gray-light,.25);
-  color:$gray-light;
-  font-size:20px;
-  float:left;
-  width:50%;
-  text-align:center;
-  cursor:pointer;
-  transition:.5s ease;
-  &:hover {
-    background:$main-dark;
-    color:$white;
-  }
-}
-
-
-.tab-group {
-  text-align: center;
-}
-
-h1 {
-  text-align:center;
-  color:$white;
-  font-weight:$thin;
-  margin:0 0 40px;
-}
-
-
-input, textarea {
-  font-size:22px;
-  display:block;
-  width:100%;
-  height:100%;
-  padding:5px 10px;
-  background:none;
-  background-image:none;
-  border:1px solid $gray-light;
-  color:$white;
-  border-radius:0;
-  transition:border-color .25s ease, box-shadow .25s ease;
-  &:focus {
-		outline:0;
-		border-color:$main;
-  }
-}
-
-textarea {
-  border:2px solid $gray-light;
-  resize: vertical;
-}
-
-.field-wrap {
-  position:relative;
-  margin-bottom:40px;
-}
-
-.button {
-  border:0;
-  outline:none;
-  border-radius:0;
-  padding:15px 0;
-  font-size:2rem;
-  font-weight:$bold;
-  text-transform:uppercase;
-  letter-spacing:.1em;
-  background:$main;
-  color:$white;
-  transition:all.5s ease;
-  -webkit-appearance: none;
-  &:hover, &:focus {
-    background:$main-dark;
-  }
-}
-
-.button-block {
-  display:block;
-  width:100%;
-}
-
-.forgot {
-  margin-top:-20px;
-  text-align:right;
-}
 
 .college-by-letter {
   display: flex;
@@ -235,6 +144,7 @@ textarea {
 .selected-college-page {
   max-width: 80%;
   margin: auto;
+  margin-top: 4rem;
 }
 
 .college-img-acc {
@@ -248,11 +158,15 @@ textarea {
   position: right;
 }
 
+.ui {
+
+}
+
 .college-info-page-container {
   /* margin-left: 15%; */
 }
 .ui.labeled.button {
-  margin-top: 4rem;
+  /* margin-top: 4rem; */
 }
 
 #accordion {
@@ -267,6 +181,10 @@ textarea {
   background: rgb(0, 0, 0);
   background: rgba(0, 0, 0, 0.7);
   padding: 25px
+}
+
+.column {
+  margin-top: -6rem;
 }
 
 .review-button {
@@ -343,9 +261,40 @@ textarea {
   border: 0;
 }
 
+.dot {
+  text-align: center;
+  margin-top: 3rem;
+  /* margin-right: 4rem; */
+  height: 60px;
+  width: 60px;
+  background-color: white;
+  border-radius: 50%;
+  display: inline-block;
+  border-style: outset;
+}
+.circle-rating {
+  font-size: 2.8rem;
+}
+
+.review-circle {
+  text-align: center;
+  margin-left: 3rem;
+  /* margin-right: 4rem; */
+  height: 60px;
+  width: 60px;
+  background-color: white;
+  border-radius: 50%;
+  display: inline-block;
+  border-style: outset;
+}
+
 .review-form-header {
   margin-left: 1rem;
   margin-right: 1rem;
+}
+
+.profile-wrapper {
+  margin-top: 4rem;
 }
 
 .single-review-container {
@@ -355,5 +304,17 @@ textarea {
 
 .profile-header {
   text-align: left;
-  margin: 2rem;
+  margin: auto;
+}
+
+.favorite-colleges {
+  text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 3rem;
+  margin-left: 10%;
+}
+
+.favorite-card {
+  margin: 5rem;
 }
