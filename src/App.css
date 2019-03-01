@@ -6,18 +6,39 @@
 } */
 
 /* RevU Page */
-.revu-wrapper {
-  text-align: center;
+
+.link:hover {
+  cursor:pointer;
+}
+
+.revu-header {
+  font-family: 'Questrial', sans-serif;
+  color: white;
+  font-size: 8rem;
+  margin-top: 4rem;
+}
+
+.revu-tagline {
+  font-family: 'Questrial', sans-serif;
+  color: white;
+  font-size: 1.5rem;
+}
+
+.revu-description {
+  font-family: 'Questrial', sans-serif;
+  color: white;
+  font-size: 1.3rem;
 }
 
 .revu-background {
-  /* background-image: url("https://images.unsplash.com/photo-1527269534026-c86f4009eace?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=925&q=80"); */
-  /* background-color: #19647E; */
-  opacity: .8;
-  height: 400px;
+  background-image: url("https://images.unsplash.com/24/DSC02021.JPG?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1053&q=80");
+  background-color: #19647E;
+  height: fill;
+  background-size: cover;
   margin-top: -1rem;
   text-align: center;
-  padding-top: 150px;
+  padding-top: 50px;
+  background-repeat: no-repeat;
 }
 
 .logo {
@@ -50,7 +71,7 @@ li {
   text-align: center;
 }
 
-.content {
+.info-content {
   color:white;
   margin-left: 3rem;
 }
@@ -70,9 +91,10 @@ li {
   text-align: right;
 }
 
-/* .search-form {
-  display: inline-block;
-} */
+.ui.college.container {
+  margin-top: -3rem;
+}
+
 .college-search-container {
   margin-top: 10rem;
 }
@@ -100,6 +122,15 @@ li {
   margin-bottom: 2rem;
 }
 
+.dropdowns {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.state-dropdown {
+  margin-left: 45%;
+  margin-right: 1rem;
+}
 
 /* LOG IN SING UP FORM */
 
@@ -136,9 +167,9 @@ textarea {
   width: 25%;
 }
 
-.ui .link .cards {
-  min-width: 304px;
-  min-height: 294px;
+.ui.link.cards {
+  width: 300px;
+  height: 300px;
 }
 
 .selected-college-page {
@@ -158,19 +189,6 @@ textarea {
   position: right;
 }
 
-.ui {
-
-}
-
-.college-info-page-container {
-  /* margin-left: 15%; */
-}
-.ui.labeled.button {
-  /* margin-top: 4rem; */
-}
-
-#accordion {
-}
 
 .college-card-title {
   position: relative;
@@ -271,6 +289,7 @@ textarea {
   border-radius: 50%;
   display: inline-block;
   border-style: outset;
+  margin-right: 4rem;
 }
 .circle-rating {
   font-size: 2.8rem;
@@ -311,10 +330,17 @@ textarea {
   text-align: center;
   display: flex;
   flex-wrap: wrap;
-  padding: 3rem;
+  padding: 5rem;
   margin-left: 10%;
 }
 
 .favorite-card {
   margin: 5rem;
+}
+
+.ui.primary.basic.button.add-to-favorites {
+  margin-left: 2rem;
+}
+.ui.basic.blue.button.back {
+  margin-left: .5rem;
 }

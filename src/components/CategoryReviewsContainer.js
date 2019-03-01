@@ -26,7 +26,7 @@ export default class CategoryReviewsContainer extends React.Component {
   }
 
   hideNewReviewModal = (e) => {
-    e.persist()
+    e.preventDefault()
     this.setState({ showModal: !this.state.showModal })
   }
 
@@ -71,12 +71,18 @@ export default class CategoryReviewsContainer extends React.Component {
   }
 
   setColor = (rating) => {
-    if (rating < 3) {
-      return "red"
-    } else if (rating > 3) {
+    if (rating === 5) {
+      return "blue"
+    } else if (rating === 4) {
       return "green"
-    } else {
+    } else if (rating === 3) {
       return "orange"
+    } else if (rating === 2) {
+      return "yellow"
+    } else if (rating === 1) {
+      return "red"
+    } else {
+      return "black"
     }
   }
 

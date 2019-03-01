@@ -9,7 +9,6 @@ const Favorites = (props) => {
   })
 
 
-
   return (
     <div className="favorite-colleges">
       {reviewedColleges.slice(0, 6).map( college => {
@@ -25,7 +24,7 @@ const Favorites = (props) => {
                   {college.city}, {college.state}
                 </div>
                 <div className="description">
-                  {college.school_url}
+                  <a onClick={() => window.open(college.school_url, "_blank")} alt="college website">{college.school_url}</a>
                 </div>
               </div>
               <div className="extra content">

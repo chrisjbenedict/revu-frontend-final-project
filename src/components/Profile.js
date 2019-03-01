@@ -7,45 +7,24 @@ export default class Profile extends React.Component {
     showModal: false,
     rating: 0,
     content: "",
-    currentReview: {},
-    edittedRating: 0,
-    edittedContent: ""
+    currentUserReviews: [],
+    currentReview: {}
   }
 
-  handleEditReviewSubmit = (review, e) => {
-    e.preventDefault()
-    fetch(`http://localhost:3001/api/v1/reviews/${review.id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json"
-      },
-      body: JSON.stringify({
-        rating: this.state.edittedRating,
-        content: this.state.edittedContent
-      })
-    })
-    .then( resp => resp.json())
-    .then( () => {
-      this.setState({
-        rating: 0,
-        content: ""
-      }, this.hideEditReviewModal(e))
-      fetch(`http://localhost:3001/api/v1/reviews/${review.id}`)
-      .then(resp => resp.json())
-      .then(currentReview => {
-        this.setState({ currentReview })
-      })
-    })
-  }
 
   setColor = (rating) => {
-    if (rating < 3) {
-      return "red"
-    } else if (rating > 3) {
+    if (rating === 5) {
+      return "blue"
+    } else if (rating === 4) {
       return "green"
-    } else {
+    } else if (rating === 3) {
       return "orange"
+    } else if (rating === 2) {
+      return "yellow"
+    } else if (rating === 1) {
+      return "red"
+    } else {
+      return "black"
     }
   }
 
@@ -60,6 +39,10 @@ export default class Profile extends React.Component {
       currentReview })
   }
 
+  // currentUserReviews = () => {
+  //   this.props.allReviews.filter( review => review.user_id === this.props.currentUser.id)
+  // }
+
   hideEditReviewModal = (e) => {
     e.preventDefault()
     this.setState({ showModal: !this.state.showModal })
@@ -67,7 +50,7 @@ export default class Profile extends React.Component {
 
   changeRating = ( newRating ) => {
     this.setState({
-      edittedRating: newRating
+      rating: newRating
     })
   }
 
@@ -75,8 +58,26 @@ export default class Profile extends React.Component {
     e.preventDefault()
     this.setState({
       [e.target.name]: e.target.value
-    }, () => console.log(this.state.edittedRating, this.state.edittedContent))
+    }, () => console.log(this.state.rating, this.state.content, this.state.currentReview.id, this.props.allReviews, this.props.currentUser.id))
   }
+
+  handleEditReviewSubmit = (e) => {
+    e.preventDefault()
+    fetch(`http://localhost:3001/api/v1/reviews/${this.state.currentReview.id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json"
+      },
+      body: JSON.stringify({
+        rating: this.state.rating,
+        content: this.state.content
+      })
+    })
+    .then( resp => resp.json())
+    .then( updatedReview => this.props.editReview(updatedReview))
+  }
+
 
   render() {
     return (
@@ -89,16 +90,17 @@ export default class Profile extends React.Component {
             return (
               <div className="single-review-container">
 
-                <div className="ui message">
+                <div className="ui message info">
                   <div className="header">
                   <p style={{textAlign:"left"}}>
-                    {college.name}: {category.title}
+                    {college.name}
                     <span style={{float: "right"}}>
                       <i onClick={() => this.props.deleteReview(review.id)} className="window close outline large icon red"></i>
                     </span>
+                     <br/> Category: {category.title}
                     <span style={{float:"right"}} className="dot"><p className="circle-rating" style={{color: this.setColor(review.rating)}}>{review.rating}</p></span>
                   </p><br/>
-                    <p style={{width: "80%", textAlign: "left"}}>{review.content}</p>
+                    <p style={{width: "70%", textAlign: "left"}}>{review.content}</p>
                   </div><br/>
                   <p style={{textAlign: "left"}}>
                     {review.updated_at.split("T")[0]}
@@ -117,12 +119,12 @@ export default class Profile extends React.Component {
           key={this.state.currentReview.id}
           show={this.state.showModal}
           handleClose={this.hideEditReviewModal}
+          currentReview={this.state.currentReview}
           rating={this.state.rating}
+          content={this.state.content}
           handleFormChange={this.handleFormChange}
           changeRating={this.changeRating}
-          content={this.state.content}
           handleEditReviewSubmit={this.handleEditReviewSubmit}
-          currentReview={this.state.currentReview}
         />
       </div>
     )

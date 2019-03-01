@@ -24,6 +24,7 @@ class App extends Component {
   }
 
   componentDidMount() {
+    console.log("mounted");
     let token = localStorage.getItem("token")
 
     if(token) {
@@ -141,59 +142,75 @@ class App extends Component {
       })
       .then( () => {
         this.setState({
-          allReviews: this.state.allReviews.filter( review => review.id !== reviewId)
-        })
+          currentUserReviews: this.state.currentUserReviews.filter( review => review.id !== reviewId)
+        }, () => console.log(this.state.currentUserReviews))
       })
     }
   }
 
-  renderRevU = () => (
-    <RevU />
-  )
-
-
-  renderCollegeInfo = () => (
-    <div className="wrapper">
-      <CollegeContainer
-        key={this.state.allCollegeResults.length}
-        allCollegeResults={this.state.allCollegeResults}
-        currentUser={this.state.currentUser}
-        users={this.state.users}
-        allReviews={this.state.allReviews}
-      />
-    </div>
-  )
-
-  renderProfile = () => (
-      <Profile
-        key={this.state.allCollegeResults.length}
-        currentUser={this.state.currentUser}
-        currentUserReviews={this.state.currentUserReviews}
-        allColleges={this.state.allCollegeResults}
-        allCategories={this.state.allCategories}
-        deleteReview={this.deleteReview}
-      />
-  )
-
-  renderFavorites = ()  => (
-    <Favorites
-      key={this.state.allCollegeResults.length}
-      allColleges={this.state.allCollegeResults}
-      currentUser={this.state.currentUser}
-      currentUserReviews={this.state.currentUserReviews}
-      getCollegesReviewed={this.getCollegesReviewed}
-    />
-  )
+  editReview = (updatedReview) => {
+    console.log("EDITING REVIEW");
+    const updatedCurrentUserReviews = this.state.currentUserReviews.map(review => {
+      if (review.id == updatedReview.id) {
+        return updatedReview
+      } else {
+        return review
+      }
+    })
+    this.setState( {
+      currentUserReviews: updatedCurrentUserReviews
+    })
+  }
 
   render() {
+
+      const renderRevU = () => (
+        <RevU />
+      )
+
+      const renderCollegeInfo = () => (
+        <div className="wrapper">
+          <CollegeContainer
+            key={this.state.allCollegeResults.length}
+            allCollegeResults={this.state.allCollegeResults}
+            currentUser={this.state.currentUser}
+            users={this.state.users}
+            allReviews={this.state.allReviews}
+          />
+        </div>
+      )
+
+      const renderProfile = () => (
+          <Profile
+            key={this.state.allCollegeResults.length}
+            currentUser={this.state.currentUser}
+            currentUserReviews={this.state.currentUserReviews}
+            allColleges={this.state.allCollegeResults}
+            allCategories={this.state.allCategories}
+            editReview={this.editReview}
+            deleteReview={this.deleteReview}
+            // handleEditReviewSubmit={() => this.handleEditReviewSubmit(this.state.currentReview)}
+          />
+      )
+
+      const renderFavorites = ()  => (
+        <Favorites
+          key={this.state.allCollegeResults.length}
+          allColleges={this.state.allCollegeResults}
+          currentUser={this.state.currentUser}
+          currentUserReviews={this.state.currentUserReviews}
+          getCollegesReviewed={this.getCollegesReviewed}
+        />
+      )
+
     return (
       <div className="App">
         <Navigation currentUser={this.state.currentUser} logout={this.logout} />
         <Switch>
-          <Route path="/revu" component={this.renderRevU} />
-          <Route path="/college_info" component={this.renderCollegeInfo} />
-          <Route path="/profile" component={this.renderProfile} />
-          <Route path="/favorites" component={this.renderFavorites} />
+          <Route path="/revu" component={renderRevU} />
+          <Route path="/college_info" component={renderCollegeInfo} />
+          <Route path="/profile" component={renderProfile} />
+          <Route path="/favorites" component={renderFavorites} />
           <Route path="/login" render={(routerProps) => <LoginForm login={this.login} {...routerProps}/>} />
          	<Route path="/signup" render={(routerProps) => <SignupForm signup={this.signup} {...routerProps}/>} />
         </Switch>

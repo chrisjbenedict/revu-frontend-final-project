@@ -19,7 +19,7 @@ const NewReviewForm = (props) => {
               <textarea name="content" id="content" rows="8" placeholder="Whatcha gotta say?"></textarea>
               <br/>
               <div className="ui large buttons">
-                <button className="ui button" onClick={props.handleClose}>Cancel</button>
+                <button className="ui button" onClick={(e) => props.handleClose(e)}>Cancel</button>
                 <div className="or"></div>
                 <button className="ui button" onClick={props.handleNewReviewSubmit}>Submit</button>
               </div>

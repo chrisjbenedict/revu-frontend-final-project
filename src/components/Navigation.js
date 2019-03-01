@@ -30,7 +30,7 @@ const Navigation = props => {
             Profile
            </Link>
            <Menu.Item position="right" onClick={props.logout}>
-             Log out
+            Log out
            </Menu.Item>
          </Menu.Menu>
      }

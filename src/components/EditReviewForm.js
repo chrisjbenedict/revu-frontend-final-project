@@ -9,7 +9,7 @@ const EditReviewForm = (props) => {
           <form className="review-form" onChange={props.handleFormChange}><br/>
             <div className="modal-content">
               <StarRatings
-                name="edittedRating"
+                name="rating"
                 rating={props.rating}
                 value={props.rating}
                 starRatedColor="blue"
@@ -17,12 +17,12 @@ const EditReviewForm = (props) => {
                 numberOfStars={5}
               />
               <br/><br/>
-              <textarea name="edittedContent" id="content" rows="8"></textarea>
+              <textarea name="content" id="content" rows="8" value={props.content}></textarea>
               <br/>
               <div className="ui large buttons">
                 <button className="ui button" onClick={props.handleClose}>Cancel</button>
                 <div className="or"></div>
-                <button className="ui button" onClick={(e) => props.handleEditReviewSubmit(props.currentReview, e)}>Submit</button>
+                <button onClick={props.handleEditReviewSubmit} className="ui button">Submit</button>
               </div>
             </div>
           </form>
