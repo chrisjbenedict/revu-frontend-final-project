@@ -275,6 +275,7 @@ export default class CollegeContainer extends React.Component {
           <div className="selected-college-page">
             <College
               key={this.state.selectedCollege.id}
+              currentUser={this.props.currentUser}
               college={this.state.selectedCollege}
               photos={photos}
               onReviewButtonClick={this.onReviewButtonClick}

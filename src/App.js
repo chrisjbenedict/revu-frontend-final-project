@@ -7,7 +7,7 @@ import Navigation from './components/Navigation'
 import SignupForm from './components/SignupForm'
 import LoginForm from './components/LoginForm'
 import Profile from './components/Profile'
-import Favorites from './components/Favorites'
+import FavoritesContainer from './components/FavoritesContainer'
 import RevU from './components/RevU'
 
 
@@ -194,7 +194,7 @@ class App extends Component {
       )
 
       const renderFavorites = ()  => (
-        <Favorites
+        <FavoritesContainer
           key={this.state.allCollegeResults.length}
           allColleges={this.state.allCollegeResults}
           currentUser={this.state.currentUser}

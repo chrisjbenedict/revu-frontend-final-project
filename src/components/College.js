@@ -54,6 +54,34 @@ const showHideContent = () => {
 
 export default class College extends React.Component {
 
+  state = {
+    hideShowAddToFavorites: false
+  }
+
+
+  addToFavorites = (e) => {
+    console.log(e.target.id, this.props.currentUser);
+    fetch("http://localhost:3001/api/v1/favorites", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json"
+      },
+      body: JSON.stringify({
+        user_id: this.props.currentUser.id,
+        college_id: e.target.id,
+        ranking: null,
+        app_started: false,
+        essay: false,
+        app_submitted: false
+      })
+    })
+    .then( resp => resp.json())
+    .then( resp => {
+      this.setState({ hideShowAddToFavorites: !this.state.hideShowAddToFavorites})
+    })
+  }
+
 
   render() {
     let acc = document.querySelectorAll(".title")
@@ -80,7 +108,7 @@ export default class College extends React.Component {
             {this.props.collegeReviews}
           </a>
         </div>
-        <div className="ui primary basic button add-to-favorites">
+        <div className="ui primary basic button add-to-favorites" id={this.props.college.id} onClick={this.addToFavorites} hidden={this.state.hideShowAddToFavorites}>
           Add to Favorites
         </div>
 
