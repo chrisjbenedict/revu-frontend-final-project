@@ -14,7 +14,7 @@ export default class FavoritesContainer extends React.Component {
     .then( allFavorites => {
       this.setState({
         allFavorites,
-        currentUserFavorites: allFavorites.filter(favorite => favorite.user_id = this.props.currentUser.id)
+        currentUserFavorites: allFavorites.filter(favorite => favorite.user_id === this.props.currentUser.id)
       }, () => console.log("my fav", this.state.currentUserFavorites))
     })
   }
@@ -26,18 +26,18 @@ export default class FavoritesContainer extends React.Component {
     })
     .then( () => {
       this.setState({
-        allFavorites: this.state.allFavorites.filter( favorite => favorite.id !== favoriteToDeleteId)
+        currentUserFavorites: this.state.currentUserFavorites.filter(favorite => favorite.id !== favoriteToDeleteId)
       })
     })
   }
 
+  // const reviewedCollegeIds = this.props.currentUserReviews.map( review => review.college_id )
+  //
+  // const reviewedColleges = this.props.allColleges.filter( college => {
+    //   return reviewedCollegeIds.includes(college.id)
+    // })
 
   render() {
-    const reviewedCollegeIds = this.props.currentUserReviews.map( review => review.college_id )
-
-    const reviewedColleges = this.props.allColleges.filter( college => {
-      return reviewedCollegeIds.includes(college.id)
-    })
 
     const favoriteCollegeIds = this.state.currentUserFavorites.map( favorite => favorite.college_id )
 
@@ -50,11 +50,14 @@ export default class FavoritesContainer extends React.Component {
         <table className="ui teal celled structured table">
           <thead>
             <tr>
-              <th rowspan="2"></th>
-              <th rowspan="2">College</th>
-              <th rowspan="2">City</th>
-              <th rowspan="2">State</th>
-              <th className="center aligned" colspan="3">Application Status</th>
+              <th rowSpan="2"></th>
+              <th rowSpan="2">College</th>
+              <th rowSpan="2">City</th>
+              <th rowSpan="2">State</th>
+              <th rowSpan="2">Average ACT</th>
+              <th rowSpan="2">Average SAT</th>
+              <th rowSpan="2">Admission Rate</th>
+              <th className="center aligned" colSpan="3">Application Status</th>
             </tr>
             <tr>
               <th>Started</th>
@@ -66,9 +69,10 @@ export default class FavoritesContainer extends React.Component {
             {favoriteColleges.map( college => {
               return (
                 <Favorite
+                  key={college.id}
                   deleteFavorite={this.deleteFavorite}
                   currentUser={this.props.currentUser}
-                  allFavorites={this.state.allFavorites}
+                  currentUserFavorites={this.state.currentUserFavorites}
                   favoriteCollege={college}
                 />
               )

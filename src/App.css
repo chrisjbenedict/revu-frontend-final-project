@@ -11,6 +11,15 @@
   cursor:pointer;
 }
 
+.sort-buttons {
+  text-align: center;
+}
+
+
+.remove:hover {
+  cursor: pointer;
+}
+
 .revu-header {
   font-family: 'Questrial', sans-serif;
   color: white;

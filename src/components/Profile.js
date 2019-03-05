@@ -1,5 +1,9 @@
 import React from 'react'
 import EditReviewForm from './EditReviewForm'
+import StarRatings from 'react-star-ratings'
+
+// <span style={{float:"right"}} className="dot"><p className="circle-rating" style={{color: this.setColor(review.rating)}}>{review.rating}</p></span>
+
 
 export default class Profile extends React.Component {
 
@@ -8,25 +12,37 @@ export default class Profile extends React.Component {
     rating: 0,
     content: "",
     currentUserReviews: [],
-    currentReview: {}
+    currentReview: {},
+    sortByCategory: "sort-by-date"
   }
 
 
   setColor = (rating) => {
     if (rating === 5) {
-      return "blue"
+      return "#19647E"
     } else if (rating === 4) {
-      return "green"
+      return "#5FAD56"
     } else if (rating === 3) {
-      return "orange"
+      return "#8EB8E5"
     } else if (rating === 2) {
-      return "yellow"
+      return "#E3B505"
     } else if (rating === 1) {
-      return "red"
+      return "#EE6C4D"
     } else {
       return "black"
     }
   }
+
+  // componentDidMount() {
+  //   fetch("http://localhost:3001/api/v1/reviews")
+  //   .then( res => res.json())
+  //   .then( reviews => {
+  //     this.setState({
+  //       currentUserReviews: reviews.filter( review => review.user_id === this.props.currentUser.id )
+  //     }, () => console.log("my reviews", this.state.currentUserReviews))
+  //   })
+  // }
+
 
   showEditReviewModal = (e) => {
     const currentReview = this.props.currentUserReviews.find( review => review.id == e.target.id)
@@ -38,10 +54,6 @@ export default class Profile extends React.Component {
       rating,
       currentReview })
   }
-
-  // currentUserReviews = () => {
-  //   this.props.allReviews.filter( review => review.user_id === this.props.currentUser.id)
-  // }
 
   hideEditReviewModal = (e) => {
     e.preventDefault()
@@ -78,29 +90,62 @@ export default class Profile extends React.Component {
     .then( updatedReview => this.props.editReview(updatedReview))
   }
 
+  toggleSortedReviews = (e) => {
+    e.preventDefault()
+    this.setState({
+      sortByCategory: e.target.value
+    }, () => console.log("sorting", this.state.sortByCategory))
+  }
+
+  sortMyReviews = () => {
+    if (this.state.sortByCategory === "sort-by-rating") {
+      return this.props.currentUserReviews.sort( (a,b) => { if (a.rating > b.rating) { return -1 } if (a.rating < b.rating) { return 1 } return 0 })
+    } else if (this.state.sortByCategory === "sort-by-college") {
+      return this.props.currentUserReviews.sort( (a,b) => { if (a.college_id > b.college_id) { return -1 } if (a.college_id < b.college_id) { return 1 } return 0 })
+    } else if (this.state.sortByCategory === "sort-by-date") {
+      return this.props.currentUserReviews.sort( (a,b) => { if (a.created_at > b.created_at) { return -1 } if (a.created_at < b.created_at) { return 1 } return 0 })
+    } else {
+      return this.state.currentUserReviews
+    }
+  }
+
 
   render() {
     return (
       <div className="profile-wrapper">
-        <div></div>
+        <div className="sort-buttons">
+          <div className="ui buttons">
+            <button className="ui button blue" value="sort-by-college" onClick={this.toggleSortedReviews}>Sort by College</button>
+            <button className="ui button blue" value="sort-by-rating" onClick={this.toggleSortedReviews}>Sort by Rating</button>
+            <button className="ui button blue" value="sort-by-date" onClick={this.toggleSortedReviews}>Most Recent</button>
+          </div>
+        </div>
+      <br/>
         <div className="single-review-container">
-          {this.props.currentUserReviews.map(review => {
-            const college = this.props.allColleges.find( college => college.id === review.college_id)
+          {this.sortMyReviews().map(review => {
+            let college = this.props.allColleges.find( college => college.id === review.college_id)
             const category = this.props.allCategories.find( category => category.id === review.category_id)
             return (
               <div className="single-review-container">
 
                 <div className="ui message info">
                   <div className="header">
-                  <p style={{textAlign:"left"}}>
+                  <StarRatings
+                    rating={review.rating}
+                    starDimension="30px"
+                    starRatedColor={this.setColor(review.rating)}
+                    // changeRating={props.changeRating}
+                    numberOfStars={5}
+                  />
+                  <span style={{float: "right"}}>
+                    <i onClick={() => this.props.deleteReview(review.id)} className="window close outline large icon red"></i>
+                  </span>
+                  <div style={{textAlign:"left", fontSize:"1.3rem"}}>
+                  <br/>
                     {college.name}
-                    <span style={{float: "right"}}>
-                      <i onClick={() => this.props.deleteReview(review.id)} className="window close outline large icon red"></i>
-                    </span>
-                     <br/> Category: {category.title}
-                    <span style={{float:"right"}} className="dot"><p className="circle-rating" style={{color: this.setColor(review.rating)}}>{review.rating}</p></span>
-                  </p><br/>
-                    <p style={{width: "70%", textAlign: "left"}}>{review.content}</p>
+                     <br/><p style={{fontSize: "1.2rem"}}> Category: {category.title}</p>
+                  </div><br/>
+                    <em><p style={{fontSize:"1.1rem"}}>{review.content}</p></em>
                   </div><br/>
                   <p style={{textAlign: "left"}}>
                     {review.updated_at.split("T")[0]}

@@ -1,6 +1,7 @@
 import React from 'react'
 import NewReviewForm from './NewReviewForm'
 import Review from './Review'
+import StarRatings from 'react-star-ratings'
 
 export default class CategoryReviewsContainer extends React.Component {
 
@@ -72,33 +73,44 @@ export default class CategoryReviewsContainer extends React.Component {
 
   setColor = (rating) => {
     if (rating === 5) {
-      return "blue"
+      return "#19647E"
     } else if (rating === 4) {
-      return "green"
+      return "#5FAD56"
     } else if (rating === 3) {
-      return "orange"
+      return "#8EB8E5"
     } else if (rating === 2) {
-      return "yellow"
+      return "#E3B505"
     } else if (rating === 1) {
-      return "red"
+      return "#EE6C4D"
     } else {
       return "black"
     }
   }
 
+  calculateAverageRating = (reviewsArray) => {
+    const reducer = (acc, cV) => acc + cV
+    const ratings = reviewsArray.map( review => review.rating)
+    return (Math.round((ratings.reduce(reducer, 0)/ratings.length) * 100) / 100)
+  }
+
 
   render() {
+
+    const allCatReviews = this.state.allReviews.filter( review => review.college_id === this.props.college.id && review.category_id === this.props.category.id).sort( (a,b) => b.created_at - a.created_at)
+
     return(
       <div className="college-all-reviews-container">
         <div className="review-header">
-          <h1 className="ui center aligned header">{this.props.college.name}:</h1>
-          <h2 className="ui center aligned header">{this.props.category.title}</h2>
+          <h1 className="ui center aligned header">{this.props.college.name}</h1>
+          <h2 className="ui center aligned header">{this.props.category.title}
+            { allCatReviews.length !== 0 ? <p style={{color: this.setColor(Math.round(this.calculateAverageRating(allCatReviews)))}}>{this.calculateAverageRating(allCatReviews)}</p> : <p>no reviews yet :(</p>}
+          </h2>
         </div>
         <div className="new-review-button">
-          <button className="ui inverted primary button" onClick={this.showNewReviewModal}><i className="pencil alternate icon"></i>write a review</button>
+          <button className="ui inverted primary button" onClick={this.showNewReviewModal}><i className="pencil alternate icon"></i>write a review</button><br/>
         </div>
         <div className="reviews-container">
-          {this.state.allReviews.filter( review => review.college_id === this.props.college.id && review.category_id === this.props.category.id).map( review => {
+          {allCatReviews.map( review => {
             return (
               <Review
                 review={review}

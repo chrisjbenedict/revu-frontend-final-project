@@ -1,10 +1,10 @@
 import React from 'react'
 
 export default class ReviewPage extends React.Component {
-
-  state = {
-    category: null
-  }
+  //
+  // state = {
+  //   category: null
+  // }
 
   render() {
     return (

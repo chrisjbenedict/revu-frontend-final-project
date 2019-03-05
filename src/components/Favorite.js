@@ -27,7 +27,7 @@ export default class FavoritesContainer extends React.Component {
       this.setState({
         showStartedCheckMark: !this.state.showStartedCheckMark,
         started: !this.state.started
-      })
+      }, console.log(updatedFavorite, this.state.started))
     })
   }
   toggleEssayCheckMark = (favoriteId) => {
@@ -46,7 +46,7 @@ export default class FavoritesContainer extends React.Component {
       this.setState({
         showEssayCheckMark: !this.state.showEssayCheckMark,
         essay: !this.state.essay
-      })
+      }, console.log(updatedFavorite, this.state.essay))
     })
   }
   toggleSubmittedCheckMark = (favoriteId) => {
@@ -65,27 +65,30 @@ export default class FavoritesContainer extends React.Component {
       this.setState({
         showSubmittedCheckMark: !this.state.showSubmittedCheckMark,
         submitted: !this.state.submitted
-      })
+      }, console.log(updatedFavorite, this.state.submitted))
     })
   }
 
   render() {
-    const foundFavorite = this.props.allFavorites.find(favorite => favorite.user_id === this.props.currentUser.id && favorite.college_id === this.props.favoriteCollege.id)
+    const foundFavorite = this.props.currentUserFavorites.find(favorite => favorite.user_id === this.props.currentUser.id && favorite.college_id === this.props.favoriteCollege.id)
 
     return(
       <tr>
-        <td className="center aligned" onClick={() => this.props.deleteFavorite(this.props.favoriteCollege.id)}><strong>remove</strong></td>
+        <td className="center aligned remove" onClick={() => this.props.deleteFavorite(this.props.favoriteCollege.id)}><strong>remove</strong></td>
         <td>{this.props.favoriteCollege.name}</td>
         <td>{this.props.favoriteCollege.city}</td>
         <td>{this.props.favoriteCollege.state}</td>
+        <td>{this.props.favoriteCollege.avg_act}</td>
+        <td>{this.props.favoriteCollege.avg_sat}</td>
+        <td>{Math.round(this.props.favoriteCollege.admission_rate * 10000)/100}%</td>
         <td className="center aligned" onClick={()=>this.toggleStartedCheckMark(foundFavorite.id)} id={this.props.favoriteCollege.id}>
-          {this.state.showStartedCheckMark && <i className="large green checkmark icon"></i>}
+          {foundFavorite.app_started ? <i className="large green checkmark icon"></i> : this.state.showStartedCheckMark && <i className="large green checkmark icon"></i>}
         </td>
         <td className="center aligned" onClick={()=>this.toggleEssayCheckMark(foundFavorite.id)} id={this.props.favoriteCollege.id}>
-          {this.state.showEssayCheckMark && <i className="large green checkmark icon"></i>}
+          {foundFavorite.essay ? <i className="large green checkmark icon"></i> : this.state.showEssayCheckMark && <i className="large green checkmark icon"></i>}
         </td>
         <td className="center aligned" onClick={()=>this.toggleSubmittedCheckMark(foundFavorite.id)} id={this.props.favoriteCollege.id}>
-          {this.state.showSubmittedCheckMark && <i className="large green checkmark icon"></i>}
+          {foundFavorite.app_submitted ? <i className="large green checkmark icon"></i> : this.state.showSubmittedCheckMark && <i className="large green checkmark icon"></i>}
         </td>
       </tr>
     )

@@ -44,9 +44,9 @@ class App extends Component {
     .then( resp => resp.json())
     .then( results => {
       const sortedResults = results.sort((a, b) => {
-        if (a.cost < b.cost) { return -1 }
-        if (a.cost > b.cost) { return 1 }
-        return 0
+        // if (a.cost < b.cost) { return -1 }
+        // if (a.cost > b.cost) { return 1 }
+        // return 0
       })
       this.setState({
         allCollegeResults: sortedResults,

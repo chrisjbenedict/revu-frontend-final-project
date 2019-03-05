@@ -180,7 +180,7 @@ export default class College extends React.Component {
                   legend_toggle
                 />
               </div>
-
+          
             </div>
           </div>
 
