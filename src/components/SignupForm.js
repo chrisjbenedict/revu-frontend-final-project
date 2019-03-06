@@ -35,7 +35,7 @@ class SignupForm extends React.Component {
            <label>Password</label>
            <input onChange={this.handleChange} type="password" name="passwordConfirmation" placeholder='Password Confirmation' />
         </Form.Field>
-        <Button type="submit">Sign Up!</Button>
+        <Button type="submit" style={{backgroundColor: "#82BA92", color: "white"}}>Sign Up!</Button>
       </Form>
     );
   };

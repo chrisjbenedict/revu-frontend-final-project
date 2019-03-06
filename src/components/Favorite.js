@@ -71,6 +71,10 @@ export default class FavoritesContainer extends React.Component {
 
   render() {
     const foundFavorite = this.props.currentUserFavorites.find(favorite => favorite.user_id === this.props.currentUser.id && favorite.college_id === this.props.favoriteCollege.id)
+    const formatter = new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD'
+    })
 
     return(
       <tr>
@@ -81,6 +85,7 @@ export default class FavoritesContainer extends React.Component {
         <td>{this.props.favoriteCollege.avg_act}</td>
         <td>{this.props.favoriteCollege.avg_sat}</td>
         <td>{Math.round(this.props.favoriteCollege.admission_rate * 10000)/100}%</td>
+        <td>{formatter.format(this.props.favoriteCollege.average_cost)}</td>
         <td className="center aligned" onClick={()=>this.toggleStartedCheckMark(foundFavorite.id)} id={this.props.favoriteCollege.id}>
           {foundFavorite.app_started ? <i className="large green checkmark icon"></i> : this.state.showStartedCheckMark && <i className="large green checkmark icon"></i>}
         </td>

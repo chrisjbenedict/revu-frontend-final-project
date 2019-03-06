@@ -182,9 +182,18 @@ export default class CollegeContainer extends React.Component {
       "https://images.unsplash.com/photo-1547653872-052e3539decc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80",
       "https://images.unsplash.com/photo-1542906473-60340c54ec40?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80",
       "https://images.unsplash.com/photo-1550952853-1eb861d927b8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80",
-      "https://images.unsplash.com/photo-1534161197248-bae0085acec9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
+      "https://images.unsplash.com/photo-1534161197248-bae0085acec9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
+      "https://images.unsplash.com/photo-1504817343863-5092a923803e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80",
+      "https://images.unsplash.com/photo-1542906473-60340c54ec40?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80",
+      "https://images.unsplash.com/photo-1547573855-8486915de533?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1532649538693-f3a2ec1bf8bd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80",
+      "https://images.unsplash.com/photo-1510213491398-061d85984dfd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1354&q=80",
+      "https://images.unsplash.com/photo-1549741501-b1e583e94ee3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1267&q=80",
+      "https://images.unsplash.com/photo-1544609551-a49c984b3087?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80",
+      "https://images.unsplash.com/photo-1550096141-7263640aa48c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
     ]
     const alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
+
     return(
       <div className="college-wrapper">
         <div className="college-search-container" hidden={this.state.hideColleges}>
@@ -269,7 +278,7 @@ export default class CollegeContainer extends React.Component {
           </div>
         </div>
         <div className="selected-college-container" hidden={this.state.hideCollege}>
-          <div className="ui basic blue button back" onClick={this.goBackToCollegeSearch}>
+          <div className="ui button back" onClick={this.goBackToCollegeSearch}>
             Back
           </div>
           <div className="selected-college-page">
@@ -284,7 +293,7 @@ export default class CollegeContainer extends React.Component {
           </div>
         </div>
         <div className="selected-college-review-container" hidden={this.state.hideReview}>
-          <div className="ui basic blue button back" onClick={this.goBackToCollegeProfile}>
+          <div className="ui button back" onClick={this.goBackToCollegeProfile}>
             Back
           </div>
           <div className="selected-college-review-page">
@@ -297,7 +306,7 @@ export default class CollegeContainer extends React.Component {
           </div>
         </div>
         <div className="selected-college-category-review-container" hidden={this.state.hideReviewCategory}>
-          <div className="ui basic blue button back" onClick={this.goBackToAllReviewOptions}>
+          <div className="ui button back" onClick={this.goBackToAllReviewOptions}>
             Back
           </div>
           <div className="selected-college-category-review-page">

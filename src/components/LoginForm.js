@@ -29,7 +29,7 @@ class LoginForm extends React.Component {
            <label>Password</label>
            <input onChange={this.handleChange} type="password" name="password" placeholder='Password' />
         </Form.Field>
-        <Button type="submit">Log In!</Button>
+        <Button type="submit" style={{backgroundColor: "#82BA92", color: "white"}}>Log In!</Button>
       </Form>
     );
   };

@@ -18,19 +18,20 @@ export default class Profile extends React.Component {
 
 
   setColor = (rating) => {
-    if (rating === 5) {
-      return "#19647E"
-    } else if (rating === 4) {
-      return "#5FAD56"
-    } else if (rating === 3) {
-      return "#8EB8E5"
-    } else if (rating === 2) {
-      return "#E3B505"
-    } else if (rating === 1) {
-      return "#EE6C4D"
-    } else {
-      return "black"
-    }
+    // if (rating === 5) {
+    //   return "#19647E"
+    // } else if (rating === 4) {
+    //   return "#5FAD56"
+    // } else if (rating === 3) {
+    //   return "#8EB8E5"
+    // } else if (rating === 2) {
+    //   return "#E3B505"
+    // } else if (rating === 1) {
+    //   return "#EE6C4D"
+    // } else {
+    //   return "black"
+    // }
+    return "#82BA92"
   }
 
   // componentDidMount() {
@@ -114,21 +115,21 @@ export default class Profile extends React.Component {
     return (
       <div className="profile-wrapper">
         <div className="sort-buttons">
-          <div className="ui buttons">
-            <button className="ui button blue" value="sort-by-college" onClick={this.toggleSortedReviews}>Sort by College</button>
-            <button className="ui button blue" value="sort-by-rating" onClick={this.toggleSortedReviews}>Sort by Rating</button>
-            <button className="ui button blue" value="sort-by-date" onClick={this.toggleSortedReviews}>Most Recent</button>
+          <div className="ui buttons" style={{marginTop: "5rem"}}>
+            <button className="ui button" style={{backgroundImage: "linear-gradient(to right, #02111B, #82BA92)", color: "white"}} value="sort-by-college" onClick={this.toggleSortedReviews}>Sort by College</button>
+            <button className="ui button" style={{backgroundColor: "#82BA92", color: "white"}} value="sort-by-rating" onClick={this.toggleSortedReviews}>Sort by Rating</button>
+            <button className="ui button" style={{backgroundImage: "linear-gradient(to right, #82BA92, #02111B)", color: "white"}} value="sort-by-date" onClick={this.toggleSortedReviews}>Most Recent</button>
           </div>
         </div>
       <br/>
-        <div className="single-review-container">
+
           {this.sortMyReviews().map(review => {
             let college = this.props.allColleges.find( college => college.id === review.college_id)
             const category = this.props.allCategories.find( category => category.id === review.category_id)
             return (
               <div className="single-review-container">
 
-                <div className="ui message info">
+                <div className="ui message">
                   <div className="header">
                   <StarRatings
                     rating={review.rating}
@@ -138,7 +139,7 @@ export default class Profile extends React.Component {
                     numberOfStars={5}
                   />
                   <span style={{float: "right"}}>
-                    <i onClick={() => this.props.deleteReview(review.id)} className="window close outline large icon red"></i>
+                    <i onClick={() => this.props.deleteReview(review.id)} className="window close outline large icon"></i>
                   </span>
                   <div style={{textAlign:"left", fontSize:"1.3rem"}}>
                   <br/>
@@ -150,7 +151,7 @@ export default class Profile extends React.Component {
                   <p style={{textAlign: "left"}}>
                     {review.updated_at.split("T")[0]}
                     <span style={{float: "right"}}>
-                      <i id={review.id} onClick={(e) => this.showEditReviewModal(e)} className="edit outline large icon blue"></i>
+                      <i id={review.id} onClick={(e) => this.showEditReviewModal(e)} className="edit outline large icon"></i>
                     </span>
                   </p>
                 </div>
@@ -159,7 +160,7 @@ export default class Profile extends React.Component {
             )
           })}
           <br/>
-        </div>
+
         <EditReviewForm
           key={this.state.currentReview.id}
           show={this.state.showModal}

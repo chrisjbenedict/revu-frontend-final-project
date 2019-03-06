@@ -14,7 +14,7 @@ const Review = (props) => {
 
   return (
     <div className="single-review-container">
-      <div className="ui message">
+      <div className="ui message" style={{boxShadow: "5px 5px #9DA0B2"}}>
         <div className="header">
           {reviewer.username} says:
         </div><br/>
@@ -26,6 +26,7 @@ const Review = (props) => {
           numberOfStars={5}
         />
         <em><p style={{fontSize: "1.3rem"}}>{props.review.content}</p></em><br/>
+        <p>{props.review.created_at.split("T")[0]}</p>
       </div>
       <br/>
     </div>
