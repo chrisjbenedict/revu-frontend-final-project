@@ -132,6 +132,7 @@ export default class Profile extends React.Component {
                 <div className="ui message">
                   <div className="header">
                   <StarRatings
+                    key={review.id}
                     rating={review.rating}
                     starDimension="30px"
                     starRatedColor={this.setColor(review.rating)}

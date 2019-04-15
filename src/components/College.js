@@ -160,7 +160,7 @@ export default class College extends React.Component {
                   Website
                 </div>
                 <div className="info-content" hidden={false}>
-                  <p><a onClick={() => window.open(this.props.college.school_url, "_blank")}>{this.props.college.school_url}</a></p>
+                  <p><a onClick={() => window.location.assign(this.props.college.school_url)}>{this.props.college.school_url}</a></p>
                 </div>
                 <div className="title">
                   <i className="dropdown icon"></i>

@@ -25,6 +25,7 @@ class App extends Component {
 
   componentDidMount() {
     console.log("mounted");
+    console.log("current user", this.state.currentUser)
     let token = localStorage.getItem("token")
 
     if(token) {
