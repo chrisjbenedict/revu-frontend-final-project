@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import './App.css';
 import { Switch, Route, withRouter } from 'react-router-dom'
-import CollegeContainer from './components/CollegeContainer'
+import CollegeContainer from './containers/CollegeContainer'
 // import Search from './components/Search'
 import Navigation from './components/Navigation'
 import SignupForm from './components/SignupForm'
 import LoginForm from './components/LoginForm'
 import Profile from './components/Profile'
-import FavoritesContainer from './components/FavoritesContainer'
+import FavoritesContainer from './containers/FavoritesContainer'
 import RevU from './components/RevU'
 
 

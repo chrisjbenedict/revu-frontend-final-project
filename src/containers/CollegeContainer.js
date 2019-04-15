@@ -1,9 +1,9 @@
 import React from 'react'
-import CollegeInfoCard from './CollegeInfoCard'
-import Search from './Search'
-import College from './College'
-import ReviewPage from './ReviewPage'
-import CategoryReviewsContainer from './CategoryReviewsContainer'
+import CollegeInfoCard from '../components/CollegeInfoCard'
+import Search from '../components/Search'
+import College from '../components/College'
+import ReviewPage from '../components/ReviewPage'
+import CategoryReviewsContainer from '../containers/CategoryReviewsContainer'
 
 export default class CollegeContainer extends React.Component {
 

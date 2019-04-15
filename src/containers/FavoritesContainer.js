@@ -1,5 +1,5 @@
 import React from 'react'
-import Favorite from './Favorite'
+import Favorite from '../components/Favorite'
 import { Chart } from 'react-google-charts'
 
 

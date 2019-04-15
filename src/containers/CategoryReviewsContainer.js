@@ -1,6 +1,6 @@
 import React from 'react'
-import NewReviewForm from './NewReviewForm'
-import Review from './Review'
+import NewReviewForm from '../components/NewReviewForm'
+import Review from '../components/Review'
 import StarRatings from 'react-star-ratings'
 
 export default class CategoryReviewsContainer extends React.Component {
