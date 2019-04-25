@@ -47,6 +47,8 @@ export default class CategoryReviewsContainer extends React.Component {
 
   handleNewReviewSubmit = (e) => {
     e.preventDefault()
+    // const formData = new FormData();
+    // formData.append('review')
     fetch("http://localhost:3001/api/v1/reviews", {
       method: 'POST',
       headers: {
@@ -73,19 +75,6 @@ export default class CategoryReviewsContainer extends React.Component {
   }
 
   setColor = (rating) => {
-    // if (rating >= 4.5) {
-    //   return "#19647E"
-    // } else if (rating >= 3.5 && rating < 4.5) {
-    //   return "#5FAD56"
-    // } else if (rating >= 2.5 && rating < 3.5) {
-    //   return "#8EB8E5"
-    // } else if (rating >= 1.5 && rating < 2.5) {
-    //   return "#E3B505"
-    // } else if (rating > 0 && rating < 1.5) {
-    //   return "#EE6C4D"
-    // } else {
-    //   return "black"
-    // }
     return "#82BA92"
   }
 

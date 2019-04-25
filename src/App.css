@@ -339,9 +339,12 @@ textarea {
 .review-wrapper {
   text-align: center;
 }
+
 .review-header {
   margin: 3rem 8rem;
-  background-image: linear-gradient(to right, #82BA92, #02111B);
+  background-image: url("https://images.unsplash.com/photo-1459111701074-c0ee7842cccb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2100&q=80");
+  /* background-repeat: no-repeat; */
+  background-size: fill;
   padding: 100px;
   box-shadow: 1px 5px #888888;
   border-radius: 15px;
