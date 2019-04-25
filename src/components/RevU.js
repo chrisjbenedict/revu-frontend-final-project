@@ -49,6 +49,19 @@ const RevU = (props) => {
           <div className='revu-card-reviews-pic'>
           </div>
         </div>
+        <div className="revu-card-contact">
+          <div className='card-contents-contact'>
+            <div className='revu-contact'>
+              <h3>Contact</h3><br/>
+              <p>Chris Benedict</p>
+              <p>chrisjbenedict@gmail.com</p>
+            </div>
+            <div className='revu-about'>
+              <h3>About</h3>
+              <p>RevU was built in an effort to bridge the gap between college applicants and the colleges to which they are applying and to help college students make informed decisions at school. Students need to learn everything they can about these colleges before spending many thousands of dollars and years of their lives at the wrong school.  College students need a platform to communicate their experiences in classes, social groups, teams, and every other aspect of college life.  Keeping high school students, college students, and the universities themselves in mind, RevU also serves to inform colleges what they are doing well and what they need to improve.</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   )

@@ -45,20 +45,19 @@
   margin-top: 2rem;
 }
 
-.revu-summary {
-  /* margin: 0 10rem 0 10rem; */
-  background-image: linear-gradient(to right, white, #02111B);
-}
-
-.revu-card-info, .revu-card-favorites, .revu-card-reviews {
+.revu-card-info, .revu-card-favorites, .revu-card-reviews, .revu-card-contact {
   display: flex;
-  padding: 5em 5em 0em 5em;
+  padding: 15% 5% 0 5%;
   font-size: 1.2rem;
 }
 
-.card-contents-info {
+.revu-card-favorites, .revu-card-contact {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.card-contents-info, .card-contents-favorites, .card-contents-reviews {
   width: 50%;
-  padding: 5em;
+  padding: 0 5em 5em 5em;
 }
 
 .revu-card-info-pic {
@@ -70,11 +69,6 @@
   border-top-right-radius: 10px;
 }
 
-.card-contents-favorites {
-  width: 50%;
-  padding: 5em;
-  color: white;
-}
 
 .revu-card-favorites-pic {
   width: 50%;
@@ -85,9 +79,14 @@
   border-top-right-radius: 10px;
 }
 
-.card-contents-reviews {
-  width: 50%;
-  padding: 5em;
+
+.card-contents-contact {
+  display: flex;
+  margin-bottom: 2rem;
+}
+
+.revu-about {
+  margin-left: 200px;
 }
 
 .revu-card-reviews-pic {
