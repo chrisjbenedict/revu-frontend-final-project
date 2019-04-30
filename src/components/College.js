@@ -155,49 +155,39 @@ export default class College extends React.Component {
           <div className="ui inverted segment">
             <div className="ui inverted accordion">
               <div className="college-stats">
-                <div className="title" onClick={showHideContent}>
-                  <i className="dropdown icon"></i>
-                  Website
-                </div>
-                <div className="info-content" hidden={false}>
-                  <p><a onClick={() => window.location.assign(this.props.college.school_url)}>{this.props.college.school_url}</a></p>
-                </div>
-                <div className="title">
-                  <i className="dropdown icon"></i>
-                  Undergraduate Size
-                </div>
-                <div className="info-content">
-                  <p>{this.props.college.size}</p>
-                </div>
-                <div className="title">
-                  <i className="dropdown icon"></i>
-                  Average Total Cost
-                </div>
-                <div className="info-content">
-                  <p>{formatter.format(this.props.college.average_cost)}</p>
-                </div>
-                <div className="title">
-                  <i className="dropdown icon"></i>
-                  Admission Rate
-                </div>
-                <div className="info-content">
-                  <p>{Math.round(this.props.college.admission_rate * 100)}%</p>
-                </div>
-                <div className="title">
-                  <i className="dropdown icon"></i>
-                  Graduation Rate
-                </div>
-                <div className="info-content">
-                  <p>{Math.round(this.props.college.completion_rate * 100)}%</p>
-                </div>
-                <div className="title">
-                  <i className="dropdown icon"></i>
-                  Average SAT/ACT Scores
-                </div>
-                <div className="info-content">
-                  <p>SAT:  <span>{this.props.college.avg_sat}</span></p>
-                  <p>ACT:  <span>{this.props.college.avg_act}</span></p>
-                </div>
+                <details>
+                  <summary>Website</summary>
+                  <h4><a onClick={() => window.location.assign(this.props.college.school_url)}>{this.props.college.school_url}</a></h4>
+                </details>
+                <br/>
+                <details>
+                  <summary>Undergraduate Size</summary>
+                  <h4>{this.props.college.size}</h4>
+                </details>
+                <br/>
+                <details>
+                  <summary>Average Total Cost</summary>
+                  <h4>{formatter.format(this.props.college.average_cost)}</h4>
+                </details>
+                <br/>
+                <details>
+                  <summary>Admission Rate</summary>
+                  <h4>{Math.round(this.props.college.admission_rate * 100)}%</h4>
+                </details>
+                <br/>
+                <details>
+                  <summary>Graduation Rate</summary>
+                  <h4>{Math.round(this.props.college.completion_rate * 100)}%</h4>
+                </details>
+                <br/>
+                <details>
+                  <summary>Average SAT/ACT Scores</summary>
+                  <div className="info-content">
+                    <h4>SAT:  <span>{this.props.college.avg_sat}</span></h4>
+                    <h4>ACT:  <span>{this.props.college.avg_act}</span></h4>
+                  </div>
+                </details>
+                <br/>
               </div>
               <div className="race-demo-stat">
                 <div className="chart-title">
